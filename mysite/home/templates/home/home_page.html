@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="/static/css/Home.css">
+    <div class="sectie" id="over-mij">
+        <h2>Over mij</h2>
+        {% if page.profielfoto %}
+            {% image page.profielfoto width-200 as foto %}
+            <img src="{{ foto.url }}" alt="Mijn profielfoto" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; display: block; margin: 0 auto 15px; border: 3px solid #3498db;">
+        {% endif %}
+        {{ page.body|richtext }}
+    </div>
+
+    <hr>
+
+    <div class="sectie" id="vaardigheden">
+        <h2>Mijn Vaardigheden & Tools</h2>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            {% for block in page.vaardigheden %}
+                {% if block.block_type == 'tool_naam' %}
+                    <span style="background-color: #f0f0f0; padding: 8px 15px; border-radius: 20px; font-weight: bold; border: 1px solid #ccc; display: inline-block;">
+                        {{ block.value }}
+                    </span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="sectie" id="projecten">
+        <h2>Mijn Projecten</h2>
+        {% for project in page.projecten.all %}
+            <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                <h3>{{ project.project_naam }}</h3>
+                <div>
+                    {{ project.project_uitleg|richtext }}
+                </div>
+                {% if project.github_link %}
+                    <p><a href="{{ project.github_link }}" target="_blank" style="background-color: #333; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; display: inline-block; margin-top: 10px;">Bekijk code op GitHub →</a></p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>Er zijn nog geen projecten toegevoegd.</p>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <div class="sectie" id="contact">
+        <h2>Contact</h2>
+        <p>Wil je contact met mij opnemen? Je kunt mij bereiken via de onderstaande kanalen:</p>
+        <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 10px;"><strong>E-mail:</strong><a href="mailto:readleeann@gmail.com">readleeann@gmail.com</a></li>
+            <li style="margin-bottom: 10px;"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/lee-ann-read-604a21366/" target="_blank">Mijn LinkedIn profiel</a></li>
+            <li style="margin-bottom: 10px;"><strong>GitHub:</strong> <a href="https://github.com/lee-ann36" target="_blank">Mijn GitHub</a></li>
+        </ul>
+    </div>
+
+{% endblock %}

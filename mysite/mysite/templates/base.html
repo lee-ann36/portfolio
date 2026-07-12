@@ -1,0 +1,37 @@
+{% load wagtailcore_tags static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+                {% if page.seotitle %}{{ page.seotitle }}{% else %}{{ page.title }}{% endif %}
+            {% endblock %}
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="stylesheet" type="text/css" href="/static/css/welcome.css">
+    </head>
+
+    <body>
+        
+        <nav class="navbar">
+            <div class="logo">Lee-Ann Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#over-mij">Over mij</a></li>
+                <li><a href="#vaardigheden">Vaardigheden</a></li>
+                <li><a href="#projecten">Projecten</a></li>
+            </ul>
+        </nav>
+
+        <main class="container">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Lee-Ann. Gemaakt met Wagtail & Django voor FlevoDevs.</p>
+        </footer>
+
+    </body>
+</html>
