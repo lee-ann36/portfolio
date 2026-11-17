@@ -10,7 +10,10 @@
     <body>
         <nav class="navbar">
             <div class="logo">Lee-Ann Portfolio</div>
-            <ul class="nav-links">
+            <button class="menu-toggle" type="button" aria-label="Menu openen" aria-expanded="false" aria-controls="nav-links">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="/">Home</a></li>
                 <li><a href="/#over-mij">Over mij</a></li>
                 <li><a href="/#vaardigheden">Vaardigheden</a></li>
@@ -84,5 +87,23 @@
         <footer>
             <p>&copy; 2026 Lee-Ann. Gemaakt met Wagtail &amp; Django voor FlevoDevs.</p>
         </footer>
+        <script>
+            (function () {
+                var navbar = document.querySelector('.navbar');
+                var knop = document.querySelector('.menu-toggle');
+                if (!navbar || !knop) return;
+                function zet(open) {
+                    navbar.classList.toggle('open', open);
+                    knop.setAttribute('aria-expanded', open);
+                    knop.setAttribute('aria-label', open ? 'Menu sluiten' : 'Menu openen');
+                }
+                knop.addEventListener('click', function () {
+                    zet(!navbar.classList.contains('open'));
+                });
+                navbar.querySelectorAll('.nav-links a').forEach(function (link) {
+                    link.addEventListener('click', function () { zet(false); });
+                });
+            })();
+        </script>
     </body>
 </html>

@@ -124,29 +124,84 @@ img {
     width: auto;
 }
 
+/* Hamburgerknop: alleen zichtbaar op kleine schermen */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.navbar.open .menu-toggle span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.navbar.open .menu-toggle span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar.open .menu-toggle span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
 @media (max-width: 768px) {
     .navbar {
-        flex-direction: column;
-        gap: 10px;
-        padding: 12px 16px;
+        flex-wrap: wrap;
+        padding: 10px 16px;
     }
 
     .navbar .logo {
         font-size: 20px;
     }
 
+    .menu-toggle {
+        display: flex;
+    }
+
+    /* Dropdown: standaard dicht, open met .open op de navbar */
     .nav-links,
     .navbar .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px 18px;
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        margin-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .navbar.open .nav-links {
+        display: flex;
+    }
+
+    .nav-links li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-links li:last-child {
+        border-bottom: 0;
     }
 
     .nav-links a,
     .navbar .nav-links a {
-        font-size: 15px;
-        display: inline-block;
-        padding: 4px 0;
+        display: block;
+        padding: 12px 4px;
+        font-size: 16px;
     }
 
     .container {
@@ -178,16 +233,6 @@ img {
 @media (max-width: 400px) {
     .navbar .logo {
         font-size: 18px;
-    }
-
-    .nav-links,
-    .navbar .nav-links {
-        gap: 6px 14px;
-    }
-
-    .nav-links a,
-    .navbar .nav-links a {
-        font-size: 14px;
     }
 
     .sectie {
